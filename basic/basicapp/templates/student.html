@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>student</title>
+</head>
+<body>
+    <form method="post" action="/student/">    
+        {% csrf_token %}                      
+
+
+
+        
+        <label> fname </label>         
+        <input type="text" name="fname" size="15"/> <br> <br>  
+        <label> lname </label>         
+        <input type="text" name="lname" size="15"/> <br> <br>  
+        <label> email </label>         
+        <input type="email" name="email" size="15"/> <br> <br>  
+        <label> DOB </label>         
+        <input type="date" name="bday" required pattern="\d{4}-\d{2}-\d{2}"> <br> <br>
+        <button>Submit</button>
+    </form>
+</body>
+</html>

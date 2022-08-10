@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<style>
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+  
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+</style>
+<body>
+<form method="post" action="/principal/">
+    {% csrf_token %}
+<h1>Choose Any One To show the data</h1>
+<label class="container">Student
+  <input type="radio" checked="checked" name="radio" value="Student">
+  <span class="checkmark"></span>
+</label>
+<label class="container">Teacher
+  <input type="radio" name="radio" value="Teacher">
+  <span class="checkmark"></span>
+</label>
+<label for="id">id </label><input type="text" name="id">
+
+    <button>Submit</button>
+</form>
+
+
+
+<table>
+  <tr>
+    <!-- data render in princiapl table -->
+    <th colspan="6"><h1>Fetch Data</h1></th>
+  </tr>
+  <tr>
+    <th>ID</th>
+    <th>fname </th>
+    <th>lname</th>
+    <th>email</th>
+    <th>DOB</th>
+    <th>subject</th>
+  </tr>
+  {% if data|length > 0 %}
+  {% if 'students' in data %}
+  {% for x in data.students %}
+  <tr>
+    <td>{{x.id}}</td>
+    <td>{{x.fname}} </td>
+    <td>{{x.lname}}</td>
+    <td>{{x.email}}</td>
+    <td>{{x.dob}}</td>
+    <td>None</td>
+  </tr>
+  {% endfor %}
+  {% else %}
+  {% for x in data.teachers %}
+  <tr>
+    <td>{{x.id}}</td>
+    <td>{{x.fname}} </td>
+    <td>{{x.lname}}</td>
+    <td>None</td>
+    <td>None</td>
+    <td>{{x.subject}}</td>
+  </tr>
+  {% endfor %}
+  {% endif %}
+  {% endif %}
+</table>
+
+</body>
+</html>
